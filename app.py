@@ -38,8 +38,9 @@ def index():
         dctx = ImageDraw.Draw(img)  # create drawing context
         for detection in result:
             w, h = detection.rectangle.w, detection.rectangle.h
-            bbox = [(detection.rectangle.x, detection.rectangle.y), (w - detection.rectangle.x, h - detection.rectangle.y)]
-            dctx.rectangle(bbox, fill="#ddddff", outline="blue")
+            print(w, h)
+            # bbox = [(detection.rectangle.x, detection.rectangle.y), (w - detection.rectangle.x, h - detection.rectangle.y)]
+            # dctx.rectangle(bbox, fill="#ddddff", outline="blue")
         del dctx  # destroy drawing context
         
         output = BytesIO()
