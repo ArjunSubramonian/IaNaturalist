@@ -32,15 +32,17 @@ def index():
         # image2 = copy.deepcopy(image1)
         image2 = image1
         client = ComputerVisionClient(COGSVCS_CLIENTURL, CognitiveServicesCredentials(COGSVCS_KEY))
-        result = client.describe_image_in_stream(image1)
-        message = result.captions[0].text
+        try:
+            result = client.describe_image_in_stream(image1)
+            message = result.captions[0].text
+        except ComputerVisionErrorException as e:
+            message = str(e.response.text):
 
-        client = ComputerVisionClient(COGSVCS_CLIENTURL, CognitiveServicesCredentials(COGSVCS_KEY))
         try:
             result = client.detect_objects_in_stream(image2)
             message = str(result)
         except ComputerVisionErrorException as e:
-            message = str(e.response.text)
+            message += str(e.response.text)
 
         img = Image.open(image2)
         dctx = ImageDraw.Draw(img)  # create drawing context
