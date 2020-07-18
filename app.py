@@ -5,6 +5,7 @@ from PIL import Image, ImageDraw
 import base64
 
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
+from azure.cognitiveservices.vision.computervision.models import ComputerVisionErrorException
 from msrest.authentication import CognitiveServicesCredentials
 
 # Go get the values from .env file
@@ -33,7 +34,11 @@ def index():
         result = client.describe_image_in_stream(image)
         message = result.captions[0].text
 
-        # result = client.detect_objects_in_stream(image)
+        try:
+            result = client.detect_objects_in_stream(image)
+        except ComputerVisionErrorException as e:
+            message = str(e.response)
+
         img = Image.open(image)
         # dctx = ImageDraw.Draw(img)  # create drawing context
         # for detection in result:
@@ -41,7 +46,6 @@ def index():
         #     bbox = [(detection.rectangle.x, detection.rectangle.y), (w - detection.rectangle.x, h - detection.rectangle.y)]
         #     dctx.rectangle(bbox, fill="#ddddff", outline="blue")
         # del dctx  # destroy drawing context
-        message = str(result)
         
         output = BytesIO()
         img.save(output, 'jpeg', quality=100)
