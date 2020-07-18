@@ -33,7 +33,7 @@ def index():
         result = client.describe_image_in_stream(image)
         message = result.captions[0].text
 
-        result = client.detect_objects_in_stream(image)
+        # result = client.detect_objects_in_stream(image)
         img = Image.open(image)
         # dctx = ImageDraw.Draw(img)  # create drawing context
         # for detection in result:
