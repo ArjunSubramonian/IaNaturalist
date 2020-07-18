@@ -1,7 +1,8 @@
 import os
 from io import BytesIO
-from flask import Flask, request, render_template, send_file
+from flask import Flask, request, render_template
 from PIL import Image, ImageDraw
+import base64
 
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from msrest.authentication import CognitiveServicesCredentials
@@ -41,13 +42,10 @@ def index():
             dctx.rectangle(bbox, fill="#ddddff", outline="blue")
             del dctx  # destroy drawing context
             
-        return render_template('result.html', message=message)
+        output = BytesIO()
+        img.convert('RGBA').save(output, 'PNG', quality=100)
+        output.seek(0)
+        img = base64.b64encode(output.getvalue())
 
-@app.route('/fetch_image', methods=['GET'])
-def fetch_image():
-    output = BytesIO()
-    img.convert('RGBA').save(output, format='PNG')
-    output.seek(0, 0)
-
-    return send_file(output, mimetype='image/png', as_attachment=False)
+        return render_template('result.html', message=message, img=img.decode('ascii'))
 
