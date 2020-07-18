@@ -42,10 +42,12 @@ def index():
         #     dctx.rectangle(bbox, fill="#ddddff", outline="blue")
         #     del dctx  # destroy drawing context
         
-        output = BytesIO()
-        img.convert('RGBA').save(output, 'jpeg', quality=100)
-        output.seek(0)
-        img = base64.b64encode(output.getvalue())
+        # output = BytesIO()
+        # img.convert('RGBA').save(output, 'jpeg', quality=100)
+        # output.seek(0)
+        # img = base64.b64encode(output.getvalue())
 
-        return render_template('result.html', message=message, img=img.decode('ascii'))
+        return render_template('result.html', message=message)
+
+        # return render_template('result.html', message=message, img=img.decode('ascii'))
 
