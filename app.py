@@ -26,5 +26,5 @@ def index():
         image = request.files['image']
         client = ComputerVisionClient(COGSVCS_CLIENTURL, CognitiveServicesCredentials(COGSVCS_KEY))
         result = client.describe_image_in_stream(image)
-        message = result.caption
+        message = result.captions[0].text
         return render_template('result.html', message=message)
