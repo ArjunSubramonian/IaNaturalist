@@ -37,7 +37,7 @@ def index():
         try:
             result = client.detect_objects_in_stream(image)
         except ComputerVisionErrorException as e:
-            message = str(e.response)
+            message = str(e.response.text)
 
         img = Image.open(image)
         # dctx = ImageDraw.Draw(img)  # create drawing context
