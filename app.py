@@ -3,7 +3,6 @@ from io import BytesIO
 from flask import Flask, request, render_template
 from PIL import Image, ImageDraw
 import base64
-import copy
 
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from azure.cognitiveservices.vision.computervision.models import ComputerVisionErrorException
@@ -29,14 +28,13 @@ def index():
     elif request.method == 'POST':
         # User has sent us data
         image1 = request.files['image']
-        # image2 = copy.deepcopy(image1)
         image2 = image1
         client = ComputerVisionClient(COGSVCS_CLIENTURL, CognitiveServicesCredentials(COGSVCS_KEY))
-        try:
-            result = client.describe_image_in_stream(image1)
-            message = result.captions[0].text
-        except ComputerVisionErrorException as e:
-            message = str(e.response.text)
+        # try:
+        #     result = client.describe_image_in_stream(image1)
+        #     message = result.captions[0].text
+        # except ComputerVisionErrorException as e:
+        #     message = str(e.response.text)
 
         try:
             result = client.detect_objects_in_stream(image2)
