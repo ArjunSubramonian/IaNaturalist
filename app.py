@@ -35,7 +35,7 @@ def index():
         message = result.captions[0].text
 
         try:
-            result = client.detect_objects_in_stream(image)
+            result = client.detect_objects_in_stream(request.files['image'])
         except ComputerVisionErrorException as e:
             message = str(e.response.text)
 
