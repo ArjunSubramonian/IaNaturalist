@@ -42,8 +42,8 @@ def index():
         #     dctx.rectangle(bbox, fill="#ddddff", outline="blue")
         #     del dctx  # destroy drawing context
         
-        # output = BytesIO()
-        # img.convert('RGBA').save(output, 'jpeg', quality=100)
+        output = BytesIO()
+        img.convert('RGBA').save(output, 'jpeg', quality=100)
         # output.seek(0)
         # img = base64.b64encode(output.getvalue())
 
