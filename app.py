@@ -29,7 +29,7 @@ def index():
     elif request.method == 'POST':
         # User has sent us data
         image1 = request.files['image']
-        image2 = BytesIO()
+        image2 = image1
         shutil.copyfileobj(image1, image2)
         client = ComputerVisionClient(COGSVCS_CLIENTURL, CognitiveServicesCredentials(COGSVCS_KEY))
         result = client.describe_image_in_stream(image1)
