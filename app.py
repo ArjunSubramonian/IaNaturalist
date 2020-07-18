@@ -31,11 +31,12 @@ def index():
         # User has sent us data
         image = request.files['image']
         client = ComputerVisionClient(COGSVCS_CLIENTURL, CognitiveServicesCredentials(COGSVCS_KEY))
-        result = client.describe_image_in_stream(image)
-        message = result.captions[0].text
+        # result = client.describe_image_in_stream(image)
+        # message = result.captions[0].text
+        message = ''
 
         try:
-            result = client.detect_objects_in_stream(image.getvalue())
+            result = client.detect_objects_in_stream(image)
         except ComputerVisionErrorException as e:
             message = str(e.response.text)
 
