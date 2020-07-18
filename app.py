@@ -1,7 +1,7 @@
 import os
 from io import BytesIO
 from flask import Flask, request, render_template
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 import base64
 
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
@@ -43,13 +43,12 @@ def index():
             message += str(e.response.text)
 
         img = Image.open(image2)
-        font = ImageFont.truetype("sans-serif.ttf", 16)
         dctx = ImageDraw.Draw(img)  # create drawing context
         for detection in result.objects:
             w, h = detection.rectangle.w, detection.rectangle.h
             bbox = [(detection.rectangle.x, detection.rectangle.y), (w + detection.rectangle.x, h + detection.rectangle.y)]
             dctx.rectangle(bbox, outline="red")
-            dctx.text((detection.rectangle.x, detection.rectangle.y), detection.object_property, (255,0,0), font=font)
+            dctx.text((detection.rectangle.x, detection.rectangle.y), detection.object_property, (255,0,0))
         del dctx  # destroy drawing context
         
         output = BytesIO()
