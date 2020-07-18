@@ -22,7 +22,6 @@ img = Image.new("RGB", (100, 100), "#f9f9f9")  # create new Image
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
-@cross_origin(origin='https://intern-38847.azurewebsites.net', headers=['Content- Type', 'Authorization'])
 def index():
     if request.method == 'GET':
         # User is requesting the form
