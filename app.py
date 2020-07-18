@@ -44,10 +44,10 @@ def index():
         
         output = BytesIO()
         img.save(output, 'jpeg', quality=100)
-        # output.seek(0)
-        # img = base64.b64encode(output.getvalue())
+        output.seek(0)
+        img = base64.b64encode(output.getvalue())
 
-        return render_template('result.html', message=message)
+        # return render_template('result.html', message=message)
 
-        # return render_template('result.html', message=message, img=img.decode('ascii'))
+        return render_template('result.html', message=message, img=img.decode('ascii'))
 
