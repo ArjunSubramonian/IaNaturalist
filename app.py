@@ -30,15 +30,18 @@ def index():
         image1 = request.files['image']
         image2 = image1
         client = ComputerVisionClient(COGSVCS_CLIENTURL, CognitiveServicesCredentials(COGSVCS_KEY))
-        # try:
-        #     result = client.describe_image_in_stream(image1)
-        #     message = result.captions[0].text
-        # except ComputerVisionErrorException as e:
-        #     message = str(e.response.text)
+        message = ''
+        try:
+            result = client.describe_image_in_stream(image1)
+        except ComputerVisionErrorException as e:
+            message = str(e.response.text)
+        try:
+            message = result.captions[0].text
+        except Exception as e:
+            message += repr(e)
 
         try:
             result = client.detect_objects_in_stream(image2)
-            message = str(result)
         except ComputerVisionErrorException as e:
             message += str(e.response.text)
 
