@@ -33,21 +33,19 @@ def index():
         result = client.describe_image_in_stream(image)
         message = result.captions[0].text
 
-        # result = client.detect_objects_in_stream(image)
+        result = client.detect_objects_in_stream(image)
         img = Image.open(image)
-        # dctx = ImageDraw.Draw(img)  # create drawing context
-        # for detection in result:
-        #     w, h = detection.rectangle.w, detection.rectangle.h
-        #     bbox = [(detection.rectangle.x, detection.rectangle.y), (w - detection.rectangle.x, h - detection.rectangle.y)]
-        #     dctx.rectangle(bbox, fill="#ddddff", outline="blue")
-        #     del dctx  # destroy drawing context
+        dctx = ImageDraw.Draw(img)  # create drawing context
+        for detection in result:
+            w, h = detection.rectangle.w, detection.rectangle.h
+            bbox = [(detection.rectangle.x, detection.rectangle.y), (w - detection.rectangle.x, h - detection.rectangle.y)]
+            dctx.rectangle(bbox, fill="#ddddff", outline="blue")
+        del dctx  # destroy drawing context
         
         output = BytesIO()
         img.save(output, 'jpeg', quality=100)
         output.seek(0)
         img = base64.b64encode(output.getvalue())
-
-        # return render_template('result.html', message=message)
 
         return render_template('result.html', message=message, img=img.decode('ascii'))
 
