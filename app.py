@@ -43,7 +43,7 @@ def index():
         #     del dctx  # destroy drawing context
         
         output = BytesIO()
-        img.convert('RGBA').save(output, format='jpeg')
+        # img.convert('RGBA').save(output, format='jpeg')
         # output.seek(0)
         # img = base64.b64encode(output.getvalue())
 
