@@ -33,8 +33,10 @@ def index():
         message = ''
         try:
             result = client.describe_image_in_stream(image1)
-        except ComputerVisionErrorException as e:
-            message = str(e.response.text)
+        # except ComputerVisionErrorException as e:
+        #     message = str(e.response.text)
+        except Exception as e:
+            message += repr(e)
         try:
             message = result.captions[0].text
         except Exception as e:
