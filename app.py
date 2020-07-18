@@ -33,6 +33,8 @@ def index():
         result = client.describe_image_in_stream(image)
         message = result.captions[0].text
 
+        app.logger.error("Something has gone very wrong 1")
+
         result = client.detect_objects_in_stream(image)
         img = Image.open(BytesIO(image))
         dctx = ImageDraw.Draw(img)  # create drawing context
@@ -41,11 +43,15 @@ def index():
             bbox = [(detection.rectangle.x, detection.rectangle.y), (w - detection.rectangle.x, h - detection.rectangle.y)]
             dctx.rectangle(bbox, fill="#ddddff", outline="blue")
             del dctx  # destroy drawing context
-            
+        
+        app.logger.error("Something has gone very wrong 2")
+
         output = BytesIO()
         img.convert('RGBA').save(output, 'PNG', quality=100)
         output.seek(0)
         img = base64.b64encode(output.getvalue())
+
+        app.logger.error("Something has gone very wrong 3")
 
         return render_template('result.html', message=message, img=img.decode('ascii'))
 
