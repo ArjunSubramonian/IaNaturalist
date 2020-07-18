@@ -3,7 +3,7 @@ from io import BytesIO
 from flask import Flask, request, render_template
 from PIL import Image, ImageDraw
 import base64
-import shutil
+# import shutil
 
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from azure.cognitiveservices.vision.computervision.models import ComputerVisionErrorException
