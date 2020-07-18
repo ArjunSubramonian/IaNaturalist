@@ -35,12 +35,12 @@ def index():
 
         result = client.detect_objects_in_stream(image)
         img = Image.open(image)
-        dctx = ImageDraw.Draw(img)  # create drawing context
+        # dctx = ImageDraw.Draw(img)  # create drawing context
         # for detection in result:
         #     w, h = detection.rectangle.w, detection.rectangle.h
         #     bbox = [(detection.rectangle.x, detection.rectangle.y), (w - detection.rectangle.x, h - detection.rectangle.y)]
         #     dctx.rectangle(bbox, fill="#ddddff", outline="blue")
-        del dctx  # destroy drawing context
+        # del dctx  # destroy drawing context
         message = str(result)
         
         output = BytesIO()
