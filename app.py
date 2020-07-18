@@ -29,10 +29,11 @@ def index():
     elif request.method == 'POST':
         # User has sent us data
         image1 = request.files['image']
-        image2 = copy.deepcopy(image1)
+        # image2 = copy.deepcopy(image1)
+        image2 = image1
         client = ComputerVisionClient(COGSVCS_CLIENTURL, CognitiveServicesCredentials(COGSVCS_KEY))
-        result = client.describe_image_in_stream(image1)
-        message = result.captions[0].text
+        # result = client.describe_image_in_stream(image1)
+        # message = result.captions[0].text
 
         try:
             result = client.detect_objects_in_stream(image2)
