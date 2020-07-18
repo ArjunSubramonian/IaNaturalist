@@ -26,7 +26,5 @@ def index():
         image = request.files['image']
         client = ComputerVisionClient(COGSVCS_CLIENTURL, CognitiveServicesCredentials(COGSVCS_KEY))
         result = client.describe_image_in_stream(image)
-        message = 'No dog found. How sad. :-('
-        if 'dog' in result.tags:
-            message = 'There is a dog! Wonderful!!'
+        message = result.caption
         return render_template('result.html', message=message)
