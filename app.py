@@ -34,7 +34,7 @@ def index():
         message = result.captions[0].text
 
         # result = client.detect_objects_in_stream(image)
-        img = Image.open(BytesIO(image))
+        img = Image.open(image)
         # dctx = ImageDraw.Draw(img)  # create drawing context
         # for detection in result:
         #     w, h = detection.rectangle.w, detection.rectangle.h
